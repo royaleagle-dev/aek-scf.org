@@ -1,0 +1,111 @@
+{% extends "adminPanel/base.html" %}
+
+{% block title %}
+Web Administration
+{% endblock %}
+
+{% block otherCSS %}
+<link href="{{URL_ROOT}}plupload/js/jquery.plupload.queue/css/jquery.plupload.queue.css" rel="stylesheet">
+
+<style>
+	.gallery{
+		display:inline-block;
+	}
+</style>
+{% endblock %}
+
+{% block content%}
+<div class = "row mt-3">
+	<div class = "col-md-12" style = "margin-top:100px;padding:2%;">
+		<div class = "row">
+			<div class = "col-md-4">
+				<form method="post" action="/echo/json">	
+					<div id="uploader">
+						<p>Your browser doesn't have Flash, Silverlight or HTML5 support.</p>
+					</div>
+					<!--<input type="submit" value="Send" />-->
+				</form>
+
+			</div>
+			<div class = "col-md-8">
+
+				<div class = "row" style="padding:2%">
+					<div class = "col-md-12">
+						@php foreach($photos as $photo): @endphp
+						<div style = "background-image:url('{{$photo->photo_path}}');height:200px;width:300px;background-size:cover;" class = "gallery mb-3" id = "photoContainer-{{$photo->id}}">
+							<div style = "display:block;position:relative;bottom:0;z-inxex:100;padding:10px;background-color:red;width:100%;">
+								<a href = "{{$photo->photo_path}}" target = "_blank" style = "color:white;">View Image</a>
+								<small><a href = "javascript:void(0)" style = "float:right;" class = "btn btn-light btn-sm" onclick = "confirmDelete('{{$photo->id}}')">Delete</a></small>
+							</div>
+						</div>
+						@php endforeach; @endphp
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}
+
+{% block otherJS %}
+<script src = "{{URL_ROOT}}plupload/js/plupload.full.min.js"></script>
+<script src = "{{URL_ROOT}}plupload/js/jquery.plupload.queue/jquery.plupload.queue.js"></script>
+<script>
+$(document).ready(function() {
+	// Setup html5 version
+	$("#uploader").pluploadQueue({
+		// General settings
+		runtimes : 'html5,flash,silverlight,html4',
+		
+		// Fake server response here 
+		// url : '../upload.php',
+		url: "{% url addToGallery %}",
+		
+		max_file_size : '10mb',
+		chunks : {
+			size: '200kb',
+			send_chunk_number: false // set this to true, to send chunk and total chunk numbers instead of offset and total bytes
+		},
+		rename : true,
+		dragdrop: true,
+		filters : [
+			{title : "Image files", extensions : "jpg,gif,png"},
+			{title : "Zip files", extensions : "zip"}
+		],
+
+		// Resize images on clientside if we can
+		resize : {width : 320, height : 240, quality : 90},
+
+		flash_swf_url : 'http://rawgithub.com/moxiecode/moxie/master/bin/flash/Moxie.cdn.swf',
+		silverlight_xap_url : 'http://rawgithub.com/moxiecode/moxie/master/bin/silverlight/Moxie.cdn.xap'
+	});
+});
+
+</script>
+
+<script>
+	function confirmDelete(delId){
+		const confirmDelete = confirm("Do you really want to delete this image?");
+		if(confirmDelete){
+			deleteImage(delId);
+		}
+	}
+
+	function deleteImage(delId){
+		const imageContainer = $(`#photoContainer-${delId}`);
+		$.get(`{% url deletePhoto %}/${delId}`, success = function (response){
+			const data = JSON.parse(response);
+			const status = data.status;
+			if(status == 'success'){
+				imageContainer.slideUp('fast');
+			}
+		})
+	}
+</script>
+<script>
+	function goTo(location){
+		window.location = location;
+	}
+</script>
+{% endblock %}

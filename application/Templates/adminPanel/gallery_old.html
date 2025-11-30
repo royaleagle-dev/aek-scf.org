@@ -1,0 +1,73 @@
+{% extends "adminPanel/base.html" %}
+
+{% block title %}
+Web Administration
+{% endblock %}
+
+{% block otherCSS %}
+<style>
+	.gallery{
+		display:inline-block;
+	}
+</style>
+{% endblock %}
+
+{% block content%}
+<div class = "row mt-5">
+	<div class = "col-md-12" style = "margin-top:100px;padding:2%;">
+		<div class = "row">
+			<div class = "col-md-2">
+				<form method = "POST" enctype = "multipart/form-data" action = "{% url addToGallery %}">
+					<input type = "file" name = "photos[]" id="photos" multiple class = "form-control"><br>
+					<input type = "submit" id = "addPhoto" class = "form-control btn btn-primary btn-block" name = "addToGallery">
+					<hr>
+				</form>
+			</div>
+			<div class = "col-md-10">
+
+				<div class = "row" style="padding:2%">
+					<div class = "col-md-12">
+						@php foreach($photos as $photo): @endphp
+						<div style = "background-image:url('{{$photo->photo_path}}');height:200px;width:300px;background-size:cover;" class = "gallery mb-3" id = "photoContainer-{{$photo->id}}">
+							<div style = "display:block;position:relative;bottom:0;z-inxex:100;padding:10px;background-color:red;width:100%;">
+								<a href = "{{$photo->photo_path}}" target = "_blank" style = "color:white;">View Image</a>
+								<small><a href = "javascript:void(0)" style = "float:right;" class = "btn btn-light btn-sm" onclick = "confirmDelete('{{$photo->id}}')">Delete</a></small>
+							</div>
+						</div>
+						@php endforeach; @endphp
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}
+
+{% block otherJS %}
+<script src = "{{URL_ROOT}}plupload/js/plupload.full.min.js"></script>
+<script>
+	function confirmDelete(delId){
+		const confirmDelete = confirm("Do you really want to delete this image?");
+		if(confirmDelete){
+			deleteImage(delId);
+		}
+	}
+
+	function deleteImage(delId){
+		const imageContainer = $(`#photoContainer-${delId}`);
+		$.get(`{% url deletePhoto %}/${delId}`, success = function (response){
+			const data = JSON.parse(response);
+			const status = data.status;
+			if(status == 'success'){
+				imageContainer.slideUp('fast');
+			}
+		})
+	}
+</script>
+<script>
+	function goTo(location){
+		window.location = location;
+	}
+</script>
+{% endblock %}

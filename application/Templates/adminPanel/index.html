@@ -1,0 +1,59 @@
+{% extends "adminPanel/base.html" %}
+
+{% block title %}
+Web Administration
+{% endblock %}
+
+{% block content %}
+
+<div style = "margin-top: 50px;">
+	<div class = "row">
+		<div class = "col p-3" align = "center">
+
+			<div class = "board" onclick = "goTo('{% url adminEvents %}')">
+				<h4>Events</h4>
+				<p>12</p>
+			</div>
+
+			<div class = "board" onclick = "goTo('{% url adminGallery %}')">
+				<h4>Gallery</h4>
+				<p>20</p>
+			</div>
+
+			<div class = "board" onclick = "goTo('{% url visitors %}')">
+				<h4>Visitors</h4>
+				<p>90</p>
+			</div>
+
+		</div>
+	</div>
+</div>
+
+{% endblock %}
+
+{% block otherCSS %}
+<style>
+.board{
+	background-color: #0b212d;
+	height: 100px;
+	padding: 10%;
+	display: inline-block;
+	width: auto;
+	color:white;
+	text-align: center;
+
+}
+
+.board:hover{
+	cursor: pointer;
+}
+</style>
+{% endblock %}
+
+{% block otherJS %}
+<script>
+	function goTo(location){
+		window.location = location;
+	}
+</script>
+{% endblock %}

@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+
+{% block title %}
+Upcoming Events
+{% endblock %}
+
+{% block content %}
+<main id="main">
+
+    <!-- ======= Contact Section ======= -->
+    <section class="breadcrumbs">
+      <div class="container">
+
+        <div class="d-flex justify-content-between align-items-center">
+          <h2>Events</h2>
+          <ol>
+            <li><a href="index.html">Home</a></li>
+            <li>Events</li>
+          </ol>
+        </div>
+
+      </div>
+    </section><!-- End Contact Section -->
+
+    <!-- ======= Contact Section ======= -->
+    <section class="contact" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="500">
+      <div class="container">
+
+        <div class="row">
+
+          <div class="col-lg-6">
+
+            <div class="row">
+
+              @php foreach ($events as $event): @endphp
+              <div class="col-md-12">
+                <div class="info-box" style = "padding:15px;">
+                  <h3 align = "left">{{$event->title}} <button class = "btn btn-success" style = "float:right;">{{$event->date_time}}</button></h3>
+                  <p align = "left">{{$event->description}}</p>
+                </div>
+              </div>
+              @php endforeach; @endphp
+
+              <!--
+              <div class="col-md-6">
+                <div class="info-box">
+                  <i class="bx bx-envelope"></i>
+                  <h3>Email Us</h3>
+                  <p>admin@aek-scf.org<br>support@aek-scf.org</p>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="info-box">
+                  <i class="bx bx-phone-call"></i>
+                  <h3>Call Us</h3>
+                  <p>+234 802 080 2888</p>
+                </div>
+              </div>
+              -->
+            </div>
+
+          </div>
+
+          <div class="col-lg-6">
+            <h4>Happening Today</h4>
+            <hr>
+            
+              <div class="row">
+                <div class = "col-md-12">
+                  @php if($todayEvent): @endphp
+                  <h2>{{$todayEvent->title}}</h2>
+                  <p>{{$todayEvent->description}}</p>
+                  @php else: @endphp
+                  <h6 class = "text-danger">No Event Today</h6>
+                  @php endif; @endphp
+                </div>
+              </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section><!-- End Contact Section -->
+   
+
+  </main><!-- End #main -->
+{% endblock %}
+
+{% block otherCSS %}
+{% endblock %}
+
+{% block otherJS %}
+
+{% endblock %}

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Insta API Integration</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.1/css/bootstrap.min.css" integrity="sha512-Ez0cGzNzHR1tYAv56860NLspgUGuQw16GiOOp/I2LuTmpSK9xDXlgJz3XN4cnpXWDmkNBKXR/VDMTCnAaEooxA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    </head>
+    <body>
+        <div class="container" style="min-width:100vw;">
+            <div class="row">
+                <div class="col mt-5">
+                    <h3 class="text-center text-info">What Would you like to do?</h3>
+                    <div class="row">
+                        <div class="offset-md-2 col-md-8 text-center">
+                            <select id="actionSelect">
+                                <option>Select An Option</option>
+                                <option value="1">Get User Details</option>
+                                <option value="2">Search for Hashtags</option>
+                                <option value="3">Get Post Details</option>
+                                <option value="4">Search for A User</option>
+                                <option value="5">Get Followers List</option>
+                            </select>
+                            
+                            <div class="mt-5">
+                                <div id="getUserDetailExp" style="display:none">
+                                <input type="text" placeholder="input user_id or profile link" id="userIdInput">
+                                <button id="fetchUserDetailBtn" type="submit" class="btn btn-primary">Fetch Details</button>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-5" id="resultTable" style="display:none">
+                                
+                                <table class="table table-bordered table-fixed">
+  <thead>
+    <tr>
+      <th scope="col" class="col-6">Instagram</th>
+      <th scope="col" class="col-6">Information</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+        <td>Date Joined</td>
+        <td><span id="dateJoined"></span></td>
+    </tr>
+    <tr>
+                                        <td>User ID</td>
+                                        <td><span id="userID"></span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Username</td>
+                                        <td><span id="username"></span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Biography</td>
+                                        <td><span id="biography"></span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Full Name</td>
+                                        <td><span id="fullName"></span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Profile Picture</td>
+                                        <td>
+                                            <a href="" class="btn btn-sm btn-secondary" id="profilePicture">View Image</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Media Count</td>
+                                        <td><span id="mediaCount"></span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>External URL</td>
+                                        <td>
+                                            <a href="" class="btn btn-sm btn-secondary" id="externalURL">View URL</a>
+                                        </td>
+                                    </tr>
+  </tbody>
+</table>
+                                
+                                
+                            </div>
+                        
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        
+        <script>
+            const actions = document.querySelector("#actionSelect");
+            actions.onchange = function(){
+                let actionVal = actions.value
+                if(actionVal == 1){
+                    //get User Detail
+                    document.querySelector("#getUserDetailExp").style.display='block';
+                }
+            }
+            
+            const userIdInput = document.querySelector("#userIdInput");
+            
+            const fetchUserDetailBtn = document.querySelector("#fetchUserDetailBtn");
+            function fetchUserDetail(){
+                let fetchDetails = fetch(`https://aek-scf.org/instaapi_getUserInfo?user_id=${userIdInput.value}`).then(response => response.json())
+	                .then(data => {
+	                    //console.log(data.data.about.date_joined);
+	                    document.querySelector("#dateJoined").textContent = data.data.about.date_joined
+	                    document.querySelector("#userID").textContent = data.data.about.id
+	                    document.querySelector("#username").textContent = data.data.about.username
+	                    document.querySelector("#biography").textContent = data.data.biography
+	                    document.querySelector("#fullName").textContent = data.data.full_name
+	                    document.querySelector("#profilePicture").setAttribute('href', data.data.profile_pic_url_original) 
+	                    document.querySelector("#mediaCount").textContent = data.data.media_count
+	                    document.querySelector("#externalURL").setAttribute('href', data.data.external_url)
+	                    document.querySelector("#resultTable").style.display='block';
+	                })
+            }
+            fetchUserDetailBtn.addEventListener('click', fetchUserDetail)
+            
+        </script>
+        
+    </body>
+</html>

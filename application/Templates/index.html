@@ -1,0 +1,233 @@
+{% extends "base.html" %}
+
+{% block title %}
+Home Page
+{% endblock %}
+
+{% block content %}
+<!-- ======= Hero Section ======= -->
+  <section id="hero" class="d-flex justify-cntent-center align-items-center"
+  style = "background: linear-gradient(to right, rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url('{{URL_ROOT}}assets/img/static/home1.jpg');background-size:cover;">
+    <div id="heroCarousel" class="container carousel carousel-fade" data-bs-ride="carousel" data-bs-interval="5000">
+
+      <!-- Slide 1 -->
+      <div class="carousel-item active">
+        <div class="carousel-container">
+          <h2 class="animate__animated animate__fadeInDown"><span>Adedotun Emiloluwafe Kuyebi <br><i>Sickle Cell Foundation</i></span></h2>
+          <p class="animate__animated animate__fadeInUp">A Non Governmental Organisation</p>
+          <a href="{% url about %}" class="btn-get-started animate__animated animate__fadeInUp">Read More</a>
+        </div>
+      </div>
+
+      <!-- Slide 2 -->
+      <div class="carousel-item">
+        <div class="carousel-container">
+          <h2 class="animate__animated animate__fadeInDown">We're Here to Enlighten You</h2>
+          <p class="animate__animated animate__fadeInUp">Providing information to the public about the need for support, awareness, and advocacy for Sickle Cell Anemia</p>
+          <a href="{% url about %}" class="btn-get-started animate__animated animate__fadeInUp">Read More</a>
+        </div>
+      </div>
+
+      <!-- Slide 3 -->
+      <div class="carousel-item">
+        <div class="carousel-container">
+          <h2 class="animate__animated animate__fadeInDown">We're here to help</h2>
+          <p class="animate__animated animate__fadeInUp">Supporting educational and informational activities to increase public awareness of issues affecting the Sickle Cell Anemia community</p>
+          <a href="{% url about %}" class="btn-get-started animate__animated animate__fadeInUp">Read More</a>
+        </div>
+      </div>
+
+      <a class="carousel-control-prev" href="#heroCarousel" role="button" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon bx bx-chevron-left" aria-hidden="true"></span>
+      </a>
+
+      <a class="carousel-control-next" href="#heroCarousel" role="button" data-bs-slide="next">
+        <span class="carousel-control-next-icon bx bx-chevron-right" aria-hidden="true"></span>
+      </a>
+
+    </div>
+  </section><!-- End Hero -->
+
+  <main id="main">
+
+    <!-- ======= Services Section ======= -->
+    <section class="services">
+      <div class="container">
+
+        <div class="row">
+          <div class="col-md-6 col-lg-3 d-flex align-items-stretch" data-aos="fade-up">
+            <div class="icon-box icon-box-pink">
+              <div class="icon"><i class="bx bxl-dribbble"></i></div>
+              <h4 class="title"><a href="">Financial Support</a></h4>
+              <p class="description"> We provide Financial assistance to sickle cell Patients to the best of our ability</p>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-3 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
+            <div class="icon-box icon-box-cyan">
+              <div class="icon"><i class="bx bx-file"></i></div>
+              <h4 class="title"><a href="">R & D</a></h4>
+              <p class="description">Support Research and Development on Sickle Cell Disease</p>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-3 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="200">
+            <div class="icon-box icon-box-green">
+              <div class="icon"><i class="bx bx-tachometer"></i></div>
+              <h4 class="title"><a href="">Education</a></h4>
+              <p class="description">We're here to eradicate Ignorance concerning Sickle Cell Anemia</p>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-3 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="200">
+            <div class="icon-box icon-box-blue">
+              <div class="icon"><i class="bx bx-world"></i></div>
+              <h4 class="title"><a href="">Enlighten</a></h4>
+              <p class="description">We're here to enlighten you about Sickle Cell Anemia</p>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section><!-- End Services Section -->
+
+    <!-- ======= Why Us Section ======= -->
+    <!--
+    <section class="why-us section-bg" data-aos="fade-up" date-aos-delay="200">
+      <div class="container">
+
+        <div class="row">
+          <div class="col-lg-6 video-box">
+            <img src="assets/img/why-us.jpg" class="img-fluid" alt="">
+            <a href="https://www.youtube.com/watch?v=jDDaplaOz7Q" class="venobox play-btn mb-4" data-vbtype="video" data-autoplay="true"></a>
+          </div>
+
+          <div class="col-lg-6 d-flex flex-column justify-content-center p-5">
+
+            <div class="icon-box">
+              <div class="icon"><i class="bx bx-fingerprint"></i></div>
+              <h4 class="title"><a href="">Lorem Ipsum</a></h4>
+              <p class="description">Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident</p>
+            </div>
+
+            <div class="icon-box">
+              <div class="icon"><i class="bx bx-gift"></i></div>
+              <h4 class="title"><a href="">Nemo Enim</a></h4>
+              <p class="description">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque</p>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </section>
+    -->
+    <!-- End Why Us Section -->
+
+    <!-- ======= Features Section ======= -->
+    <section class="features">
+      <div class="container">
+
+        <div class="section-title">
+          <h2>Why The Foundation?</h2>
+          <p></p>
+        </div>
+
+        <div class="row" data-aos="fade-up">
+          <div class="col-md-5">
+            <img src="{{URL_ROOT}}assets/img/static/adedotun.png" class="img-fluid" alt="" style = "height:auto;max-width:100%;">
+          </div>
+          <div class="col-md-7 pt-4">
+            <h3>Why?</h3>
+            <p class="fst-italic">
+              "The thought of the foundation came up to immortalize Adedotun so that this can be of help to others with Sickle Cell
+              Anemia (providing financial help when it is required) and the society at large. This is also to sensitize people on Sickle Cell Anemia.
+              Jesus Died that we might live so in the same vane, we pray that Adedotun's death will not be in vain and would help others with the disease have a better and prolonged life."
+            </p>
+            
+            <!--
+            <ul>
+              <li><i class="bi bi-check"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat.</li>
+              <li><i class="bi bi-check"></i> Duis aute irure dolor in reprehenderit in voluptate velit.</li>
+            </ul>
+            -->
+
+          </div>
+        </div>
+
+        <div class="row" data-aos="fade-up">
+          <div class="col-md-5 order-1 order-md-2">
+            <img src="{{URL_ROOT}}assets/img/static/adedotun2.png" class="img-fluid" alt="" style = "height:auto;max-width:100%;">
+          </div>
+          <div class="col-md-7 pt-5 order-2 order-md-1">
+            <h3>Adedotun Emiloluwafe Kuyebi</h3>
+            <p>
+              Adedotun spent 26 years on earth and would have been 27 years old today, Wednesday 19th May, 2021.
+              On several occasions, we have ben advised to let him marry as soon as possible so that he would leave a child
+              or children behind even if the Lord calls him hoe early. We felt that decision would have been selfish and self-centered
+              as his wife would have become a widow at a tender age and the child/children fatherless. Moreover,
+              he himself was bent on finishing his studies before going into marriage. He took his studies more important
+              than even his health. It was because he had an assignment in school that he refused to be admitted in the hospital
+              early enough, who knows, maybe or maybe not he would still be alive.
+            </p>
+            <div align = "right">
+              <button class = "btn btn-outline-primary" onclick = "window.location = '{% url about %}';">Read More</button>
+            </div>
+            <!--
+            <p class="fst-italic">
+              Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
+              velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+              culpa qui officia deserunt mollit anim id est laborum
+            </p>
+          -->
+          </div>
+        </div>
+
+        <div class="row" data-aos="fade-up">
+          <div class="col-md-5">
+            <img src="{{URL_ROOT}}assets/img/static/home1.jpg" class="img-fluid" alt="" style = "height:auto;max-width:100%;">
+          </div>
+          <div class="col-md-7 pt-5">
+            <h3>Objectives of the Organisation</h3>
+            <p>Adedotun Emiloluwafe Kuyebi Sickle Cell Foundation (AEKSCF) is a non-profit, non-governmental
+              organisation (NGO) with the sole purpose of supporting research, education and funding of individuals, families of those who are impacted by sickle cell disease
+            </p>
+            <!--
+            <ul>
+              <li><i class="bi bi-check"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat.</li>
+              <li><i class="bi bi-check"></i> Duis aute irure dolor in reprehenderit in voluptate velit.</li>
+              <li><i class="bi bi-check"></i> Facilis ut et voluptatem aperiam. Autem soluta ad fugiat.</li>
+            </ul
+            -->
+          </div>
+        </div>
+
+        <div class="row" data-aos="fade-up">
+          <div class="col-md-5 order-1 order-md-2">
+            <img src="{{URL_ROOT}}assets/img/static/home2.jpg" class="img-fluid" alt="" style = "height:auto;max-width:100%;">
+          </div>
+          <div class="col-md-7 pt-5 order-2 order-md-1">
+            <h3>Mission of the Organisation</h3>
+            <p class="">
+              The mission of the Adedotun Kuyebi Sickle Cell Foundation is to enlighten the world about Sickle Cell Anemia and to be a connecting link in finding a cure
+              Our Mission is to <br><br><i>"improve the whole lives of those living with Sickle Cell Anemia across the ation by employing innovative strategies to deliver
+              impactful advocacy initiatives and live-enhancing programs, while supporting new research & therapies to cure the disease"</i><br><br>
+              <i>It is a humanitarian effort channeled towards saving lives of people living with Sickle Cell Anemia and helping in the education of the society to prevent
+              its occurrence.</i>
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </section><!-- End Features Section -->
+
+  </main><!-- End #main -->
+{% endblock %}
+
+{% block otherCSS %}
+{% endblock %}
+
+{% block otherJS%}
+{% endblock %}
+

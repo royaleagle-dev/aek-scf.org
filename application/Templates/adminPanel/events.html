@@ -1,0 +1,201 @@
+{% extends "adminPanel/base.html" %}
+
+{% block title %}
+Web Administration
+{% endblock %}
+
+{% block content %}
+
+<div style = "margin-top: 100px;">
+	<div class = "row mt-5">
+		<div class = " offset-md-4 col-md-4">
+
+			<div align = "right">
+				<button class = "btn btn-primary" style = "" id="addNewEvent">Add New Event</button>
+				<hr>
+			</div>
+
+
+			<!--Add New Event-->
+			<div class = "modal-backdrop" style = "display:none;" id = "addEvent">
+				<div class = "modal-panel">
+					<h4>Add New Event</h4>
+					<hr>
+					<form method = "POST" action = "{% url addEvent %}">
+						<div class = "input-group">
+							<div class = "input-group-prepend">
+								<span class = "input-group-text">Title</span>
+							</div>
+							<input type = "text" class = "form-control" name = "title" required >
+						</div>
+						<textarea class = "form-control" name = "description" required></textarea>
+						<div class = "input-group">
+							<div class = "input-group-prepend">
+								<span class = "input-group-text">Event Date</span>
+							</div>
+							<input type = "date" class = "form-control" name = "event-date" required>
+						</div>
+							<input type = "submit" class = "btn btn-primary btn-block" name = "addEvent">
+					</form>
+				</div>
+				<div class = "modal-cancel">
+					<h1>X</h1>
+				</div>
+			</div>
+
+
+
+			<!--Edit Event-->
+			<div class = "modal-backdrop" style = "display:none;" id = "editEvent">
+				<div class = "modal-panel">
+					<h4>Edit Event</h4>
+					<hr>
+					<form method = "POST" action = "{% url updateEvent %}">
+						<div class = "input-group">
+							<div class = "input-group-prepend">
+								<span class = "input-group-text">Title</span>
+							</div>
+							<input type = "text" class = "form-control" name = "title" required id = "editTitle">
+						</div>
+						<textarea class = "form-control" name = "description" required id = "editDescription"></textarea>
+						<div class = "input-group">
+							<div class = "input-group-prepend">
+								<span class = "input-group-text">Event Date</span>
+							</div>
+							<input type = "date" class = "form-control" name = "event-date" required id = "editDate">
+						</div>
+							<input type = "submit" class = "btn btn-success" name = "editEvent" value = "Update">
+							<input type = "hidden" name = 'eventId' id = "eventId">
+					</form>
+				</div>
+				<div class = "modal-cancel" id = "cancelEdit">
+					<h1>X</h1>
+				</div>
+			</div>
+
+
+
+			@php foreach($events as $event): @endphp
+			<div class = "panel" id = "eventContainer-{{$event->id}}">
+				<h4>{{$event->title}} 
+					<button  onclick = "confirmDeleteEvent('{{$event->id}}')" class = "btn btn-outline-danger" style = "float:right;"><i class = "bx bx-trash"></i></button>
+
+					<button onclick = "editEvent('{{$event->id}}')" class = "btn btn-outline-info" style = "float:right;"><i class = "bx bx-pen" data-title= "{{$event->title}}" data-description = "{{$event->description}}" data-date = "{{$event->date_time}}" id = "editEvent-{{$event->id}}"></i></button>
+				</h4>
+				<hr>
+				<p>{{$event->description}}</p>
+				<hr>
+				<p align = "right">{{$event->date_time}}</p>
+			</div>
+			@php endforeach; @endphp
+
+		</div>
+	</div>
+</div>
+
+{% endblock %}
+
+{% block otherCSS %}
+<style>
+.panel{
+	padding: 5%;
+	background-color: white;
+	text-align: left;
+	margin-bottom: 2%;
+	box-shadow:  5px 5px 15px grey;
+}
+
+.modal-backdrop{
+	background-color: rgba(0, 0, 100, 0.8);
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	z-index: 10000;
+	top: 0;
+	left: 0;
+	overflow: hidden;
+}
+
+.modal-panel{
+	background-color: white;
+	padding: 15px;
+	width: 30%;
+	position: relative;
+	margin: 0 auto;
+	height: 50%;
+}
+
+.modal-cancel{
+	color: white;
+	position: relative;
+	bottom:  0;
+	left: 70%;
+}
+
+.modal-cancel:hover{
+	cursor: pointer;
+	color: yellow;
+}
+
+.modal-panel input, .modal-panel textarea{
+	margin-bottom: 4%;
+}
+</style>
+{% endblock %}
+
+{% block otherJS %}
+<script>
+	function editEvent(eventId){
+		const btnElement = document.getElementById(`editEvent-${eventId}`);
+		const title = btnElement.dataset['title'];
+		const description = btnElement.dataset['description'];
+		const eventDate = btnElement.dataset['date'];
+
+		$("#editTitle").val(title);
+		$("#editDescription").val(description);
+		$("#editDate").val(eventDate);
+		$("#eventId").val(eventId);
+
+		$("#editEvent").show('fast');
+
+		$("#cancelEdit").click(function(){
+			$("#editEvent").hide('fast');
+		})
+	}
+</script>
+<script>
+	function goTo(location){
+		window.location = location;
+	}
+
+	$("#addNewEvent").click(function(){
+		$("#addEvent").show('fast');
+	})
+
+	$(".modal-cancel").click(function(){
+		$('#addEvent').hide('fast');
+	})
+</script>
+
+<script>
+	function confirmDeleteEvent(eventId){
+		confirmDelete = confirm("Do you really want to delete this Event");
+		if(confirmDelete){
+			deleteEvent(eventId)
+		}
+	}
+
+	function deleteEvent(eventId){
+		$.get(`{% url deleteEvent %}/${eventId}`, success = function(response){
+			const data = JSON.parse(response);
+			const status = data.status;
+			if(status == 'success'){
+				//hide the container
+				const eventContainer = $(`#eventContainer-${eventId}`).hide('fast');
+
+			}
+
+		})
+	}
+</script>
+{% endblock %}
