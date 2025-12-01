@@ -1,8 +1,8 @@
 <?php
 class ShutdownUpload {
-    private $localDbPath = '/tmp/vibewalls.sqlite';
-    private $cloudBucket = 'vibewall-file-storage';
-    private $cloudFileName = 'vibewalls.sqlite';
+    private $localDbPath = '/tmp/aek-scf.sqlite';
+    private $cloudBucket = 'aek-scf-file-storage';
+    private $cloudFileName = 'aek-scf.sqlite';
     
     public function __construct() {
         // Register shutdown function to run when container stops
